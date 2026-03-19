@@ -10,9 +10,9 @@ import "react-toastify/dist/ReactToastify.css";
 import Login from "./components/Login/Login";
 
 const App = () => {
-  const url = "http://localhost:4000";
+  const url = "https://food-delivery-zr30.onrender.com";
   //DEPLPOYED BACKEND URL => https://food-delivery-backend-5b6g.onrender.com
-   
+
   return (
     <div>
       <ToastContainer />
@@ -21,10 +21,10 @@ const App = () => {
       <div className="app-content">
         <Sidebar />
         <Routes>
-          <Route path="/" element={<Login url={url}/>} />
-          <Route path="/add" element={<Add url={url}/>} />
-          <Route path="/list" element={<List url={url}/>} />
-          <Route path="/orders" element={<Orders url={url}/>} />
+          <Route path="/" element={<Login url={url} />} />
+          <Route path="/add" element={<Add url={url} />} />
+          <Route path="/list" element={<List url={url} />} />
+          <Route path="/orders" element={<Orders url={url} />} />
         </Routes>
       </div>
     </div>

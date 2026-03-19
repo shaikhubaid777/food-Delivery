@@ -9,29 +9,29 @@ export const StoreContext = createContext(null);
 
 const StoreContextProvider = (props) => {
   const [cartItems, setCartItems] = useState({});
-  const url = "http://localhost:4000";
+  const url = "https://food-delivery-zr30.onrender.com";
   const [token, setToken] = useState("");
   const [food_list, setFoodList] = useState([]);
 
   const addToCart = async (itemId) => {
-    
+
 
     if (!cartItems?.[itemId]) {
       setCartItems((prev) => ({ ...prev, [itemId]: 1 }));
-      
+
     } else {
       setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }));
-      
+
     }
     if (token) {
-      const response=await axios.post(
+      const response = await axios.post(
         url + "/api/cart/add",
         { itemId },
         { headers: { token } }
       );
-      if(response.data.success){
+      if (response.data.success) {
         toast.success("item Added to Cart")
-      }else{
+      } else {
         toast.error("Something went wrong")
       }
     }
@@ -40,14 +40,14 @@ const StoreContextProvider = (props) => {
   const removeFromCart = async (itemId) => {
     setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] - 1 }));
     if (token) {
-      const response= await axios.post(
+      const response = await axios.post(
         url + "/api/cart/remove",
         { itemId },
         { headers: { token } }
       );
-      if(response.data.success){
+      if (response.data.success) {
         toast.success("item Removed from Cart")
-      }else{
+      } else {
         toast.error("Something went wrong")
       }
     }
@@ -65,32 +65,32 @@ const StoreContextProvider = (props) => {
   // };
 
   const getTotalCartAmount = () => {
-  if (!food_list.length) return 0;
+    if (!food_list.length) return 0;
 
-  let totalAmount = 0;
+    let totalAmount = 0;
 
-  for (const item in cartItems) {
-    if (cartItems[item] > 0) {
-      const itemInfo = food_list.find((product) => product._id === item);
+    for (const item in cartItems) {
+      if (cartItems[item] > 0) {
+        const itemInfo = food_list.find((product) => product._id === item);
 
-      if (itemInfo) {
-        totalAmount += itemInfo.price * cartItems[item];
+        if (itemInfo) {
+          totalAmount += itemInfo.price * cartItems[item];
+        }
       }
     }
-  }
 
-  return totalAmount;
-};
+    return totalAmount;
+  };
 
   const fetchFoodList = async () => {
-  const response = await axios.get(url + "/api/food/list");
+    const response = await axios.get(url + "/api/food/list");
 
-  if (response.data.success) {
-    setFoodList(response.data.data);  // ✅ direct set
-  } else {
-    alert("Error! Products are not fetching..");
-  }
-};
+    if (response.data.success) {
+      setFoodList(response.data.data);  // ✅ direct set
+    } else {
+      alert("Error! Products are not fetching..");
+    }
+  };
 
   // const fetchFoodList = async () => {
   //   const response = await axios.get(url + "/api/food/list");
@@ -99,9 +99,9 @@ const StoreContextProvider = (props) => {
   //     response.data.data.forEach((item) => {
   //        setFoodList((prev) => [...prev, item]);
   //     });
-     
+
   //     console.log(response.data.data);
-      
+
   //   } else {
   //     alert("Error! Products are not fetching..");
   //   }
