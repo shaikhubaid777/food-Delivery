@@ -21,6 +21,7 @@ const Navbar = ({ setShowLogin }) => {
       <Link to="/">
         <img src={assets.logo} alt="" className="logo" />
       </Link>
+
       <ul className="navbar-menu">
         <Link
           to="/"
@@ -51,8 +52,8 @@ const Navbar = ({ setShowLogin }) => {
           contact us
         </a>
       </ul>
+      
       <div className="navbar-right">
-        <img src={assets.search_icon} alt="" />
         <div className="navbar-search-icon">
           <Link to="/cart">
             <img src={assets.basket_icon} alt="" />
