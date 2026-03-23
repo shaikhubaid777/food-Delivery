@@ -21,8 +21,6 @@ app.use(cors());
 connectDB();
 
 // api endpoints
-
-
 app.use("/api/food", foodRouter);
 app.use("/images", express.static("uploads"));
 app.use("/api/user", userRouter);
@@ -33,9 +31,6 @@ app.get("/", (req, res) => {
   res.send('API is working fine ✅');
 });
 
-// app.get("/api/test", (req, res) => {
-//   res.send("");
-// });
 
 app.listen(port, () => {
   console.log(`Server Started on port: http://localhost:${port}`);
