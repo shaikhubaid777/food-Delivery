@@ -56,9 +56,12 @@ const verifyOrder = async (req, res) => {
   const { orderId, success } = req.body;
   try {
     if (success === "true") {
-      const order = await orderModel.findByIdAndUpdate(orderId, { payment: true });
+      const order = await orderModel.findByIdAndUpdate(orderId, { payment: true }, { new: true });
+      if (!order) {
+        return res.json({ success: false, message: "Order not found" });
+      }
       await userModel.findByIdAndUpdate(order.userId, { cartData: {} });
-      res.json({ success: true, message: "Paid" });
+      res.json({ success: true, message: "Paid", order: order.toObject() });
     } else {
       await orderModel.findByIdAndDelete(orderId);
       res.json({ success: false, message: "Not Paid" });
